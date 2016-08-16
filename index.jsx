@@ -19,6 +19,22 @@ import { Router, Route, Link, browserHistory } from 'react-router'
 //   }
 // }
 
+
+class MyIndex extends React.Component {
+  render(){
+    return (<div>
+      MyIndex
+      <div>header</div>
+      <ul>
+        <li><Link to='/viz1'>Go to viz1</Link></li>
+        <li><Link to='/viz2'>Go to viz2</Link></li>
+      </ul>
+      { this.props.children }
+      <div>Footer</div>
+    </div>)
+  }
+}
+
 import Viz1 from './viz1'
 
 class Viz2 extends React.Component{
@@ -30,8 +46,10 @@ class Viz2 extends React.Component{
 export class App extends React.Component {
 	render() {
 		return (<Router history={browserHistory}>
-    <Route path="viz1" component={Viz1}/>
-    <Route path="viz2" component={Viz2}/>
+      <Route path="/" component={MyIndex}>
+        <Route path="viz1" component={Viz1}/>
+        <Route path="viz2" component={Viz2}/>
+      </Route>
   </Router>)
 	}
 }
