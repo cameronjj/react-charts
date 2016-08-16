@@ -20,10 +20,27 @@ class StraightAnglePieChart extends React.Component {
 import Slider from 'material-ui/Slider';
 
 export default class ControlledPieChart extends React.Component {
+
+	constructor(props){
+		super(props)
+		this.state = {}
+		this.sliderValue = 1
+	}
+
+
   render(){
     const data = this.props.data
+
+		const sliderValue = this.state.sliderValue
+
+		const handleSlider = (event, value) => {
+			console.log('value is', value)	// value is between 0 and 1
+			this.setState({sliderValue: value})
+		}
+
     return <div>
-			<Slider defaultValue={1} />
+			<Slider defaultValue={sliderValue} onChange={handleSlider}/>
+			<div> sliderValue is {sliderValue}</div>
       <StraightAnglePieChart data={data}/>
     </div>
   }
