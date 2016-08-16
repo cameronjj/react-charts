@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios'
+import Viz from './viz'
 
 export default class LoadAndViz extends React.Component {
 
@@ -9,7 +11,14 @@ export default class LoadAndViz extends React.Component {
 	}
 
 	componentDidMount(){
-
+		axios.get('/naturenet-export.json')
+		  .then((response) => {
+		    console.log(response);
+				this.setState({dataset: response.data})
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  })
 	}
 
 	render() {
