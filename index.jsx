@@ -13,11 +13,13 @@ import { Router, Route, Link, browserHistory } from 'react-router'
 // </div>
 // );
 
-class Viz1 extends React.Component{
-  render(){
-    return <div>Hi Viz 1</div>
-  }
-}
+// class Viz1 extends React.Component{
+//   render(){
+//     return <div>Hi Viz 1</div>
+//   }
+// }
+
+import Viz1 from './viz1'
 
 class Viz2 extends React.Component{
   render(){
