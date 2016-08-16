@@ -30,7 +30,8 @@ module.exports = {
 			hot: true,
 			inline: true,
 			port: PORT,
-			host: HOST
+			host: HOST,
+			historyApiFallback: true	     
 		},
 	plugins: [
 		new webpack.NoErrorsPlugin(),
