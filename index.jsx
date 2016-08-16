@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TinyBarChart from './chart'
+import TinyBarChartFoo from './chart2'
 
 export class App extends React.Component {
 	render() {
@@ -10,7 +11,7 @@ export class App extends React.Component {
 				<p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
 				<p><a className="btn btn-primary btn-lg">Learn more</a></p>
         <TinyBarChart height={200} dataKey={'uv'}/>
-        <TinyBarChart height={200} dataKey={'uv'}/>
+        <TinyBarChartFoo height={200} dataKey={'uv'}/>
 			</div>
 		);
 	}
