@@ -50,9 +50,17 @@ export default class ControlledTinyBarChart extends React.Component {
 			this.setState({site: 'zz_elsewhere'})
 		}
 
+		const handleKeydown = (event, value) => {
+			console.log('event', event, event.keyCode)
+			if (event.keyCode === 13){
+				this.setState({site: event.target.value})
+			}
+		}
+
 		return <div>
 			<div onClick={handleClick}>ACES</div>
 			<div onClick={handleClick1}>ELSEWHERE</div>
+			<input type="text" name="lname" onKeyDown={handleKeydown}/>
 			<TinyBarChart height={height} dataKey={dataKey} data={data} site={site}/>
 		</div>
 	}
