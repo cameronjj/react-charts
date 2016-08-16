@@ -26,13 +26,34 @@ class TinyBarChart extends React.Component{
 
 export default class ControlledTinyBarChart extends React.Component {
 
+	constructor(props){
+		super(props)
+
+		this.state = {}
+		this.state.site = 'zz_elsewhere'
+	}
+
+
 	render(){
 		const height = this.props.height
 		const dataKey = this.props.dataKey
     const data = this.props.data
+		const site = this.state.site
 
-		const site = 'zz_elsewhere'
-		
-		return <TinyBarChart height={height} dataKey={dataKey} data={data} site={site}/>
+		const handleClick = (event) => {
+			console.log('event', event)
+			this.setState({site: 'aces'})
+		}
+
+		const handleClick1 = (event) => {
+			console.log('event', event)
+			this.setState({site: 'zz_elsewhere'})
+		}
+
+		return <div>
+			<div onClick={handleClick}>ACES</div>
+			<div onClick={handleClick1}>ELSEWHERE</div>
+			<TinyBarChart height={height} dataKey={dataKey} data={data} site={site}/>
+		</div>
 	}
 }
