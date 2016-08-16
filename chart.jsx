@@ -36,7 +36,22 @@ import ProcessData from './process'
 //   }
 // }
 
+import axios from 'axios'
+
 export default class ReadDataAndViz extends React.Component {
+
+  componentDidMount(){
+
+    axios.get('https://naturenet.firebaseio.com/observations.json')
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+  }
+
   render(){
 
     const data = [
