@@ -13,6 +13,8 @@ export default class ProcessData extends React.Component {
       return copy
     })
 
+		// TODO: process data so that data1 can be understood by TinyBarChart
+
     return <TinyBarChart dataKey={'uv'} height={500} data={data1}/>
   }
 }
