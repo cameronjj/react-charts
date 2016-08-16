@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Viz from './viz'
+import LoadAndViz from './LoadAndViz'
 export class App extends React.Component {
 	render() {
 		return (
-			<Viz/>
+			<LoadAndViz/>
 		)
 	}
 }
