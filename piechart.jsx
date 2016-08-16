@@ -5,9 +5,10 @@ import {BarChart, Bar, PieChart, Pie, LineChart, Line, XAxis, YAxis, CartesianGr
 class StraightAnglePieChart extends React.Component {
 	render () {
     const data = this.props.data
+		const outerRadius = this.props.outerRadius || 80
   	return (
     	<PieChart width={800} height={400}>
-        <Pie startAngle={180} endAngle={0} data={data} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
+        <Pie startAngle={180} endAngle={0} data={data} cx={200} cy={200} outerRadius={outerRadius} fill="#8884d8" label/>
        </PieChart>
     )
   }
@@ -38,10 +39,12 @@ export default class ControlledPieChart extends React.Component {
 			this.setState({sliderValue: value})
 		}
 
+		const outerRadius = 50 + 100 * sliderValue
+
     return <div>
 			<Slider defaultValue={sliderValue} onChange={handleSlider}/>
 			<div> sliderValue is {sliderValue}</div>
-      <StraightAnglePieChart data={data}/>
+      <StraightAnglePieChart data={data} outerRadius={outerRadius}/>
     </div>
   }
 }
