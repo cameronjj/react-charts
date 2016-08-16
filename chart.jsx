@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
-
+import _ from 'lodash'
 
 class TinyBarChart extends React.Component{
 	render () {
@@ -21,8 +21,16 @@ class TinyBarChart extends React.Component{
 
 class ProcessData extends React.Component {
   render(){
-    const data = this.props.data
-    return <TinyBarChart dataKey={'uv'} height={500} data={data}/>
+    let data = this.props.data
+
+    // some data processing before passing it down to the chart component
+    let data1 = _.map(data, d => {
+      let copy = _.clone(d)
+      copy.pv = copy.pv + 100
+      return copy
+    })
+
+    return <TinyBarChart dataKey={'uv'} height={500} data={data1}/>
   }
 }
 
