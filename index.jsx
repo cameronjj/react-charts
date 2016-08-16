@@ -2,6 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
+
 import LoadAndViz from './LoadAndViz'
 import LoadAndViz2 from './LoadAndViz2'
 
@@ -24,12 +31,14 @@ class CommonLayout extends React.Component {
 export class App extends React.Component {
 	render() {
 		return (
-      <Router history={browserHistory}>
-      <Route path="/" component={CommonLayout}>
-        <Route path="viz1" component={LoadAndViz}/>
-        <Route path="viz2" component={LoadAndViz2}/>
-      </Route>
-    </Router>
+       <MuiThemeProvider>
+        <Router history={browserHistory}>
+          <Route path="/" component={CommonLayout}>
+            <Route path="viz1" component={LoadAndViz}/>
+            <Route path="viz2" component={LoadAndViz2}/>
+          </Route>
+        </Router>
+      </MuiThemeProvider>
 		)
 	}
 }

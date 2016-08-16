@@ -11,7 +11,7 @@ export default class LoadAndViz extends React.Component {
 	}
 
 	componentDidMount(){
-		axios.get('https://nn-viz.firebaseio.com/activities.json')
+		axios.get('https://naturenet.firebaseio.com/observations.json')
 		  .then((response) => {
 		    console.log(response);
 				this.setState({dataset: response.data})

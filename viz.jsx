@@ -1,27 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import moment from 'moment'
 global.moment = moment
 
-let dataset = require('json!./public/naturenet-export.json')
-global.dataset = dataset
-
-// import Recharts from 'recharts'
-import {BarChart, Bar, PieChart, Pie, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
 import _ from 'lodash'
 global._ = _
 
-class StraightAnglePieChart extends React.Component {
-	render () {
-    const data = this.props.data
-  	return (
-    	<PieChart width={800} height={400}>
-        <Pie startAngle={180} endAngle={0} data={data} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
-       </PieChart>
-    );
-  }
-}
+import ControlledPieChart from './piechart'
 
 class ActivityDistribution extends React.Component {
 
@@ -40,12 +25,13 @@ class ActivityDistribution extends React.Component {
   }
 
   render(){
-    return <StraightAnglePieChart data={this.state.output}/>
+    return <ControlledPieChart data={this.state.output}/>
   }
 }
 
 export default class Viz extends React.Component {
 	render() {
+    const dataset = this.props.dataset
 		return (
 			<div>
         <ActivityDistribution input={dataset}/>
