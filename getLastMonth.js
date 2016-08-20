@@ -1,6 +1,12 @@
-import React from 'react';
-import _ from 'lodash';
-import moment from 'moment';
+var _ = require('lodash');
+var moment = require('moment');
+
+// // Test Data
+ // var full = require('./full_export.json')
+ // var observations = full.observations
+// var comments = full.comments
+// var ideas = full.ideas
+// var users = full.users
 
 //get an array of moments instead of observations
 function getMoments(input){
@@ -50,44 +56,30 @@ function generateEmptyTimeArray(input) {
 }
 
 //merge data with array of empty dates
-function mergeEmptyWithData(empty, input) {
+function mergeData(empty, input) {
 	var output = _.merge(empty, input)
 	return output
 }
 
 //change format
-function format(input) {
+function format(input, dataKey) {
 	var output = _.map(input, (d,i) => {
-			var dict = { time: i, comments: d }
+			var dict = { time: i, [dataKey]: d }
 			return dict;
 		})
 	return output
 }
 
 //return whole shebang
-function process(input) {
+export function lastMonth(input, dataKey) {
 	var pipeline = _.flow([getMoments, getLastMonth, groupByDay, getCount])
-	var pipeline2 = _.flow([getMoments, getLastMonth, generateEmptyTimeArray])
-	var pipeline3 = _.flow([mergeEmptyWithData, format])
+	var pipelineEmpty = _.flow([getMoments, getLastMonth, generateEmptyTimeArray])
 
-	var processedData = pipeline(input, 'comments')
-	var empty = pipeline2(input, 'comments')
+	var processedObs = pipeline(input)
+	var empty = pipelineEmpty(input)
 
-	var output = pipeline3(empty, processedData)
-
+	var merged = mergeData(empty, processedObs)
+	var output = format(merged, dataKey)
 
 	return output
-}
-
-
-import SimpleBarChart from './simpleBar'
-
-export default class ProcessData extends React.Component {
-  render(){
-    let data = this.props.data
-
-    // some data processing before passing it down to the chart component
-    let data1 = process(data)
-    return <SimpleBarChart dataKey={'comments'} color = {'#82ca9d'} dataset={data1}/>
-  }
 }

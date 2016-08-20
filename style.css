@@ -10,6 +10,7 @@ body{
 img#logo {
   padding-top: 5px;
   padding-left: 10px;
+  float: left;
 }
 
 ul#nav {
@@ -65,4 +66,30 @@ ul#nav {
   padding-left: 40px;
   padding-right: 60px;
   line-height: 28px;
+}
+
+#buttons {
+  padding-left: 45px;
+}
+
+button {
+  color: black;
+  background-color: white;
+  padding: 10px 28px;
+  border: 1px solid #e7e7e7;
+  text-align: center;
+  font-weight: 300;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+}
+
+button:hover {
+    background-color: #f7f7f7;
+}
+
+button#active {
+  background-color: #e7e7e7;
 }

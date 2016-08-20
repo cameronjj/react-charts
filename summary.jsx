@@ -1,38 +1,68 @@
 import React from 'react';
+import axios from 'axios';
+import {processing} from './getKeyData';
+import ProcessData from './process_complete_monthly';
+import SummaryLength from './length';
 
-import ReadDataAndViz from './obsLength';
-import ReadDataAndViz2 from './userLength';
-import ReadDataAndViz3 from './commentLength';
-import ReadDataAndViz4 from './ideaLength';
-import ProcessData from './obsChart';
-import ProcessData2 from './commentChart';
-import ProcessData3 from './ideaChart';
 
-export default class Summary extends React.Component{
+export default class ReadDataAndViz extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state = {}
+    this.state.observations = null
+    this.state.comments = null
+    this.state.users = null
+    this.state.ideas = null
+  }
+
+  componentDidMount(){
+    axios.get('https://naturenet.firebaseio.com/observations.json')
+      .then((response) => {
+        this.setState({observations: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    axios.get('https://naturenet.firebaseio.com/comments.json')
+      .then((response) => {
+        this.setState({comments: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    axios.get('https://naturenet.firebaseio.com/users.json')
+      .then((response) => {
+        this.setState({users: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    axios.get('https://naturenet.firebaseio.com/ideas.json')
+      .then((response) => {
+        this.setState({ideas: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   render(){
-    return (
-		<div id = "content">
-			<div id = 'unit'>
-				<h3>NatureNet Activity Summary</h3>
-        <div id = 'list'>
-          <p>No. Users: <ReadDataAndViz2/></p>
-          <p>No. Observations: <ReadDataAndViz/></p>
-          <p>No. Comments: <ReadDataAndViz3/></p>
-          <p>No. Design Ideas: <ReadDataAndViz4/></p>
+    const observations = this.state.observations
+    const comments = this.state.comments
+    const users = this.state.users
+    const ideas = this.state.ideas
+
+    if (observations === null || comments === null || ideas === null || users === null){
+      return <div>Loading...</div>
+    } else {
+      var keyData = processing(observations, comments, ideas, users)
+      return (
+        <div id = "content">
+          <SummaryLength data = {keyData}/>
+          <ProcessData data = {keyData}/>
         </div>
-			</div>
-      <div id = 'unit'>
-        <h3> Observations Since Launch </h3>
-        <ProcessData/>
-      </div>
-      <div id = 'unit'>
-        <h3> Comments Since Launch </h3>
-        <ProcessData2/>
-      </div>
-      <div id = 'unit'>
-        <h3> Design Ideas Since Launch </h3>
-        <ProcessData3/>
-      </div>
-	</div>
-)}
+      )
+    }
+  }
 }

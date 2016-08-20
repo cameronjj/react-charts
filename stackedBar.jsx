@@ -1,7 +1,6 @@
 import React from 'react';
 import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
-
 export default class StackedBarChart extends React.Component{
 	render () {
 		const dataset = this.props.dataset

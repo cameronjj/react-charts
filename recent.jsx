@@ -1,39 +1,68 @@
 import React from 'react';
-import ProcessData from './obsChart2';
-import ProcessData2 from './commentChart2';
-import ProcessData3 from './ideaChart2';
-import ProcessData4 from './obsChart3';
-import ProcessData5 from './commentChart3';
-import ProcessData6 from './ideaChart3';
+import axios from 'axios';
+import {processing} from './getKeyData';
+import ProcessMonth from './process_last_month';
+import ProcessWeek from './process_last_week';
 
-export default class Recent extends React.Component{
+
+export default class ReadDataAndViz extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state = {}
+    this.state.observations = null
+    this.state.comments = null
+    this.state.users = null
+    this.state.ideas = null
+  }
+
+  componentDidMount(){
+    axios.get('https://naturenet.firebaseio.com/observations.json')
+      .then((response) => {
+        this.setState({observations: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    axios.get('https://naturenet.firebaseio.com/comments.json')
+      .then((response) => {
+        this.setState({comments: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    axios.get('https://naturenet.firebaseio.com/users.json')
+      .then((response) => {
+        this.setState({users: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    axios.get('https://naturenet.firebaseio.com/ideas.json')
+      .then((response) => {
+        this.setState({ideas: response.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   render(){
-    return (
-		<div id = "content">
-      <div id = 'unit'>
-      <h2>Last Week</h2>
-        <h3> Observations </h3>
-        <ProcessData4/>
-        <h3> Comments </h3>
-        <ProcessData5/>
-        <h3> Design Ideas</h3>
-        <ProcessData6/>
-      </div>
-      <div id = 'unit'>
-      <h2>Last Month</h2>
-        <h3> Observations </h3>
-        <ProcessData/>
-        <h3> Comments </h3>
-        <ProcessData2/>
-        <h3> Design Ideas</h3>
-        <ProcessData3/>
-      </div>
-	</div>
-)}
+    const observations = this.state.observations
+    const comments = this.state.comments
+    const users = this.state.users
+    const ideas = this.state.ideas
+
+    if (observations === null || comments === null || ideas === null || users === null){
+      return <div>Loading...</div>
+    } else {
+      var keyData = processing(observations, comments, ideas, users)
+      return (
+        <div id = "content">
+          <ProcessWeek data = {keyData}/>
+          <ProcessMonth data = {keyData}/>
+        </div>
+      )
+    }
+  }
 }
-//
-// <p>No. Observations: {length(fullDataset, 'observations')}</p>
-// <p>No. Comments: {length(fullDataset, 'comments')}</p>
-// <p>No. Design Ideas: {length(fullDataset, 'ideas')}</p>
-// <h3> Activity Since Launch </h3>
-// <StackedBarChart dataset = {overTime2(fullDataset)}/>

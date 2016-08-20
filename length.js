@@ -1,19 +1,20 @@
 import React from 'react';
 import _ from 'lodash';
-import moment from 'moment';
 
-function process(input){
-	var output = _.size(input)
-	return output
-}
-
-export default class ProcessData extends React.Component {
+export default class SummaryLength extends React.Component {
   render(){
     let data = this.props.data
 
-    // some data processing before passing it down to the chart component
-    let data1 = process(data)
-		console.log(data1)
-    return <span> {data1} </span>
+    return (
+			<div id = 'unit'>
+				<h3>NatureNet Activity Summary</h3>
+				<div id = 'list'>
+					<p>No. Users: {_.size(data.users)}</p>
+					<p>No. Observations: {_.size(data.observations)}</p>
+					<p>No. Comments: {_.size(data.comments)}</p>
+					<p>No. Design Ideas: {_.size(data.ideas)}</p>
+				</div>
+			</div>
+		)
   }
 }
